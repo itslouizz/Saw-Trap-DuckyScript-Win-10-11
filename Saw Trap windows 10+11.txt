@@ -1,4 +1,7 @@
 REM Open Notepad, explain "Saw-style trap", perform system changes, kill Explorer, and trigger BSOD if Explorer not restored  
+REM USE ONLY DEVICES THAT YOU OWN
+REM THIS CAN CORRUPT THE SYSTEM
+REM THE CREATOR IS NOT CHARGEABLE FOR ANY DAMAGES MADE BY YOU
 
 REM 1. Open Run Dialog  
 GUI r  
